@@ -2,6 +2,7 @@
 from functools import wraps
 from flask import Flask, request
 from collections import defaultdict
+from bot.bdbot import BDUnitBot
 
 
 def _dispatch_decorator(req_type):
@@ -38,7 +39,9 @@ class WXBot:
         # 私聊中所有event为框架默认的Event，群聊中所有的event自定义为在私聊后加‘__chatroom’
         # 私聊默认event为ReceiveMessage，所以群聊event为ReceiveMessage__chatroom
         from_id = req_dict.get('FromId')
-        if str(from_id).endswith('@chatroom'):
+        is_chatroom = str(from_id).endswith('@chatroom')    # 是否群聊
+        if is_chatroom:
+            # 群聊，默认route的on_event注解中事件+__chatroom后缀
             event_type = event_type+'__chatroom'
         handler = self._handlers.get('event_type').get(event_type)
         if handler:
@@ -58,3 +61,5 @@ class WXBot:
         """
         at_user = at_user if at_user else ''
         return f'<&&>SendMessage<&>{wxid}<&>{msg_content}<&>{at_user}<&>{msg_type}'
+
+
