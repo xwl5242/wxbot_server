@@ -62,4 +62,5 @@ class WXBot:
         at_user = at_user if at_user else ''
         return f'<&&>SendMessage<&>{wxid}<&>{msg_content}<&>{at_user}<&>{msg_type}'
 
-
+    def is_kw_reply(self):
+        pass
