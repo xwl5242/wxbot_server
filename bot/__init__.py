@@ -50,7 +50,7 @@ class WXBot:
     def run(self, host='0.0.0.0', port=8080, **kwargs):
         self.bot.run(host=host, port=port, **kwargs)
 
-    def send_msg(self, wxid, msg_content, at_user=None, msg_type=1):
+    def send_msg(self, wxid, msg_content, msg_type, at_user=None):
         """
         发送私聊消息或者群聊消息
         :param wxid: 接受者wxid
@@ -60,7 +60,9 @@ class WXBot:
         :return:
         """
         at_user = at_user if at_user else ''
-        return f'<&&>SendMessage<&>{wxid}<&>{msg_content}<&>{at_user}<&>{msg_type}'
+        if msg_type == 1:
+            return f'<&&>SendMessage<&>{wxid}<&>{msg_content}<&>{at_user}<&>{msg_type}'
+        elif msg_type == 5:
+            return f'<&&>SendAppMsgRaw<&>{wxid}<&>{msg_content}<&>{msg_type}'
 
-    def is_kw_reply(self):
-        pass
+
