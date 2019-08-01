@@ -58,14 +58,15 @@ def receive_sys_msg_chatroom(msg):
     :param msg:
     :return:
     """
-    print(msg)
     r_type = str(msg.get('Type'))
     if r_type == '10002':
+        # 该机器人只做入群欢迎语功能
         from_id = msg.get('from_id')
         content = str(msg.get('content'))
-        start, end = '<nickname>', '</nickname>'
-        content = content[content.index(start)+len(start), content.index(end)]
-        sender = content.replace('<![CDATA[', '').replace(']', '').replace('>', '').replace('<', '')
+        start_str, end_str = '<nickname>', '</nickname>'
+        s_index, e_index = content.index(start_str) + len(start_str), content.index(end_str)
+        sender = content[s_index:e_index]
+        sender = sender.replace('<![CDATA[', '').replace(']]>', '')
         if '加入群聊' in content:
             return wx_bot.send_wx_msg(from_id, f'@{sender}\n欢迎加入，您可以@Coco机器人，发送菜单，获取群聊功能\n祝您使用愉快！', 1)
     return ''
