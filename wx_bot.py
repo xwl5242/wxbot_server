@@ -38,7 +38,8 @@ def receive_message_chatroom(msg):
     if config.WX_ROBOT_ID in at_list:
         msg_type = 1
         # 群聊中有人@自己，@自己开启@关键字回复或者百度闲聊
-        content = content[content.index(' ')+1:]
+        if ' ' in content:
+            content = content[content.index(' ')+1:]
         if is_at_kw_reply(content):
             msg_type, reply = msg_reply(content, 'at')
         else:
