@@ -1,10 +1,4 @@
 # -*- coding:utf-8 -*-
-img_xml = """
-<msg>
-    <img length="6503" hdlength="0" />
-    <commenturl>@url@</commenturl>
-</msg>
-"""
 music_xml = """
 <appmsg appid="wx485a97c844086dc9" sdkver="0">
     <title>@song@</title>

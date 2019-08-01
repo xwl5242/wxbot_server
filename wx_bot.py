@@ -51,34 +51,24 @@ def receive_message_chatroom(msg):
     return ''
 
 
-@wx_bot.on_event('ReceiveSysMsg__chatroom')
+@wx_bot.on_event('ReceiveSysMsg')
 def receive_sys_msg_chatroom(msg):
     """
     系统消息，入群，退群
     :param msg:
     :return:
     """
-    pass
-
-
-@wx_bot.on_event('ReceiveVerifyMsg')
-def receive_verify_msg(msg):
-    """
-    加机器人为好友
-    :param msg:
-    :return:
-    """
-    pass
-
-
-@wx_bot.on_event('VerifyUser')
-def verify_user(msg):
-    """
-    同意加好友请求
-    :param msg:
-    :return:
-    """
-    pass
+    print(msg)
+    r_type = str(msg.get('Type'))
+    if r_type == '10002':
+        from_id = msg.get('from_id')
+        content = str(msg.get('content'))
+        start, end = '<nickname>', '</nickname>'
+        content = content[content.index(start)+len(start), content.index(end)]
+        sender = content.replace('<![CDATA[', '').replace(']', '').replace('>', '').replace('<', '')
+        if '加入群聊' in content:
+            return wx_bot.send_wx_msg(from_id, f'@{sender}\n欢迎加入，您可以@Coco机器人，发送菜单，获取群聊功能\n祝您使用愉快！', 1)
+    return ''
 
 
 if __name__ == '__main__':
