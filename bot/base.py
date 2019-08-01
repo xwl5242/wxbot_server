@@ -54,7 +54,7 @@ class WXBot:
         # 判断聊天方式：群聊/私聊
         from_id = req_dict.get('FromId')
         # 是否为群聊
-        is_chatroom = str(from_id).endswith('@chatroom')
+        is_chatroom = '@chatroom' in str(from_id)
         if is_chatroom and from_id in config.WX_ROBOT_WORK_GROUP:
             # 群聊，默认route的on_event注解中事件加'__chatroom'后缀
             event_type = event_type+'__chatroom'

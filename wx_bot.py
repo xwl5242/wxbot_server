@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import config
 from bot import *
 from plugins.msg_reply import *
 
@@ -50,6 +49,36 @@ def receive_message_chatroom(msg):
     if reply:
         return wx_bot.send_wx_msg(chatroom_id, f'@{sender_nick}\n{reply}', msg_type)
     return ''
+
+
+@wx_bot.on_event('ReceiveSysMsg__chatroom')
+def receive_sys_msg_chatroom(msg):
+    """
+    系统消息，入群，退群
+    :param msg:
+    :return:
+    """
+    pass
+
+
+@wx_bot.on_event('ReceiveVerifyMsg')
+def receive_verify_msg(msg):
+    """
+    加机器人为好友
+    :param msg:
+    :return:
+    """
+    pass
+
+
+@wx_bot.on_event('VerifyUser')
+def verify_user(msg):
+    """
+    同意加好友请求
+    :param msg:
+    :return:
+    """
+    pass
 
 
 if __name__ == '__main__':
