@@ -33,6 +33,15 @@ music_xml = """
 
 
 def get_music_xml(song, singer, cover_url, data_url, url):
+    """
+    获取微信音乐类型消息的appmsg
+    :param song: 歌曲名称
+    :param singer: 歌手
+    :param cover_url: 封面图片地址
+    :param data_url: 歌曲地址
+    :param url: 歌曲详情地址
+    :return:
+    """
     return music_xml.replace('@url@', url).replace('@cover@', cover_url)\
         .replace('@song@', song).replace('@singer@', singer).replace('@dataurl@', data_url)
 

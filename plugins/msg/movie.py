@@ -8,10 +8,18 @@ from urllib.parse import quote
 class Movie:
 
     def __init__(self, movie_name):
+        """
+        电影关键词回复
+        :param movie_name:
+        """
         self.movie_name = quote(movie_name)
 
     def search(self):
-        long_url = f'{config.TV_SEARCH_URL}{self.movie_name}'
+        """
+        电影搜索
+        :return:
+        """
+        long_url = f'{config.MOVIE_SEARCH_URL}{self.movie_name}'
         return Movie.sina_short_url(long_url)
 
     @staticmethod

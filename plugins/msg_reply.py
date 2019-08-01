@@ -1,10 +1,14 @@
 # -*- coding:utf-8 -*-
 import config
-from plugins.movie import Movie
-from plugins.music import Music
+from plugins.msg import *
 
 
 def movie_msg(movie_name):
+    """
+    电影类 关键词回复
+    :param movie_name: 电影名称
+    :return:
+    """
     movie_message = f'关键词：{movie_name}\n'
     movie_json = Movie(movie_name).search()
     url = ''
@@ -16,12 +20,21 @@ def movie_msg(movie_name):
     return 1, movie_message
 
 
-def music_msg(music_msg):
-    music = Music(music_msg).search()
-    return 5, music
+def music_msg(music_name):
+    """
+    音乐类 关键词回复
+    :param music_name: 音乐名称
+    :return:
+    """
+    return 5, Music(music_name).search()
 
 
-def dispatch(content):
+def msg_reply(content):
+    """
+    关键词回复调度方法
+    :param content:
+    :return:
+    """
     # 从消息中读取关键字
     content = str(content)
     kw = [k for k in config.FUNC_KW_LIST if content.startswith(k)]
@@ -33,6 +46,8 @@ def dispatch(content):
         # 调用相应的处理消息方法
         func = config.FUNC_MAP.get(kw)
         return eval(func)(content)
+    else:
+        return 1, None
 
 
 def is_kw_reply(content):
