@@ -68,7 +68,19 @@ def receive_sys_msg_chatroom(msg):
         sender = content[s_index:e_index]
         sender = sender.replace('<![CDATA[', '').replace(']]>', '')
         if '加入群聊' in content:
-            return wx_bot.send_wx_msg(from_id, f'@{sender}\n欢迎加入，您可以@Coco机器人，发送菜单，获取群聊功能\n祝您使用愉快！', 1)
+            return wx_bot.send_wx_msg(from_id, f'@{sender}\n欢迎加入，您可以@Coco机器人，发送"菜单"，获取群聊功能\n祝您使用愉快！', 1)
+        else:
+            xml = """
+            <appmsg appid="wx485a97c844086dc9"  sdkver="0">
+                <title>分享测试</title>
+                <des>分享描述</des>
+                <type>5</type>
+                <content>1111</content>
+                <url>http://v6-dy.ixigua.com/d491f9f4492cb4c3e22cd8d07042e0e0/5d42a8bd/video/m/2206858e5ccc40143ba85542da908a852be116294de700005fe0a6363efc/?rc=MzhubnZmc3d0bjMzZ2kzM0ApdSk1ODo2NDQ1MzM0ODQzMzQ1b2U7M2Y0OWdmOGRmOTYzaWlAaUBoNHYpQGczdilAZjs0QGpwcjAvZy4yL18tLV8tL3NzOmkwMTQ2Li4xLS4zMTIuNTYtOiNiMWE1XjBhNV4xMC1gYi0xYSNvIzphLW8jOmAtbyMvLl4%3D</url>
+                <thumburl>https://p9-dy.byteimg.com/aweme/1080x1080/240c40006daeef91f2bd5.jpeg</thumburl>
+            </appmsg>
+            """
+            return wx_bot.send_wx_msg(from_id, xml, 5)
     return ''
 
 

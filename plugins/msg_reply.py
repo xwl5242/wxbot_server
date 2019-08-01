@@ -1,6 +1,11 @@
 # -*- coding:utf-8 -*-
 import config
+from plugins.dy import Dy
 from plugins.msg import *
+
+
+def dy_msg(content):
+    return 1, Dy().fetch_tv(content)
 
 
 def menu_msg(content):

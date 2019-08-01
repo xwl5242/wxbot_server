@@ -15,6 +15,7 @@ MUSIC_SEARCH_URL = cp.get('WX_BOT', 'music_search_url')
 MUSIC_COVER_URL = cp.get('WX_BOT', 'music_cover_url')
 MUSIC_DETAIL_URL = cp.get('WX_BOT', 'music_detail_url')
 WELCOME_IMG_URL = cp.get('WX_BOT', 'welcome_img_url')
+DY_JX_URL = cp.get('WX_BOT', 'dy_jx_url')
 MUSIC_VKEY_URL = 'https://u.y.qq.com/cgi-bin/musicu.fcg?-=getplaysongvkey05137740976859173&' \
                  'g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&' \
                  'notice=0&platform=yqq.json&needNewCode=0&data=%7B%22req%22%3A%7B%22module' \
