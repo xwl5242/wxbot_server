@@ -1,0 +1,118 @@
+###微信机器人说明###
+docker 安装wine镜像 将机器人程序部署在wine中
+此程序为服务端，供机器人发送消息使用
+
+###部署遇到的问题###
+其中的百度闲聊机器人由于服务器网络原因需要配置
+1.step1:先在服务器端ping 一下测试网址的host
+2.step2:在本地ping 一下测试网址的host
+3.观查到服务端和本地 同一host指向的ip不一样
+4.修改服务器端 /etc/hosts 配置文件
+5.添加 本地ping的地址 appapi.xxx.com
+
+###docker安装wine说明###
+    ####### ubuntu install wine ######
+    apt-get update
+    apt-get install -y wget
+    apt-get install -y gpg-agent
+
+    ###64位系统启用32位体系结构
+    dpkg --add-architecture i386
+
+    ###添加存储库
+    wget -nc https://dl.winehq.org/wine-builds/Release.key
+    apt-key add Release.key
+
+    apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
+    --一般会报错，解决方法：
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 76F1A20FF987672F
+    apt-get update
+
+    ###add repository选择
+    Ubuntu 19.04	 apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
+    Ubuntu 18.10	 apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ cosmic main'
+    Ubuntu 18.04 Linux Mint 19.x apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
+    Ubuntu 16.04 Linux Mint 18.x apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
+    apt-get update
+    apt-get install winehq-stable
+
+    ###### 安装wine成功后切换wine为32位 ######
+    export WINEARCH="win32"
+    rm -rf ~/.wine
+    WINEPREFIX="$HOME/prefix32" WINEARCH=win32 wine wineboot
+
+    ###### ubuntu install winetricks ######
+    wget http://www.kegel.com/wine/winetricks
+    chmod +x winetricks
+    sudo mv winetricks /usr/local/bin
+
+    ###### setting font ######
+    将 simsun.ttc（从自己电脑字体库中找） 复制到 ～/.wine/drive_c/windows/Fonts
+    执行 regedit zh.reg
+
+    ###### winetricks 安装 net4 ######
+    先安装2  再安装4 安装4会问题，没关系，结束安装，到~/.cache/winetricks/dotNet..40中直接wine net4安装程序.exe
+
+    ###### zh.reg 内容 ######
+        REGEDIT4
+
+        [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+
+        "Arial"="simsun"
+
+        "Arial CE,238"="simsun"
+
+        "Arial CYR,204"="simsun"
+
+        "Arial Greek,161"="simsun"
+
+        "Arial TUR,162"="simsun"
+
+        "Courier New"="simsun"
+
+        "Courier New CE,238"="simsun"
+
+        "Courier New CYR,204"="simsun"
+
+        "Courier New Greek,161"="simsun"
+
+        "Courier New TUR,162"="simsun"
+
+        "FixedSys"="simsun"
+
+        "Helv"="simsun"
+
+        "Helvetica"="simsun"
+
+        "MS Sans Serif"="simsun"
+
+        "MS Shell Dlg"="simsun"
+
+        "MS Shell Dlg 2"="simsun"
+
+        "System"="simsun"
+
+        "Tahoma"="simsun"
+
+        "Times"="simsun"
+
+        "Times New Roman CE,238"="simsun"
+
+        "Times New Roman CYR,204"="simsun"
+
+        "Times New Roman Greek,161"="simsun"
+
+        "Times New Roman TUR,162"="simsun"
+
+        "Tms Rmn"="simsun"
+
+###### docker 启动 ######
+docker run -d --name wine -e VNC_PASSWORD=xwl@5242 -p 9000:80 -p 9001:5900 -v /home/wxbot:/usr/local/wxbot dorowu/ubuntu-desktop-lxde-vnc
+
+
+
+
+
+
+
+

@@ -20,11 +20,11 @@ class BDUnitBot:
         :return:
         """
         # header
-        header = {'Content-Type': 'application/json;charset=UTF-8', 'Connection': 'close'}
+        header = {"Content-Type": "application/json;charset=UTF-8", "Connection": "close"}
         # 请求参数
-        data = {'grant_type': 'client_credentials',
-                'client_id': config.BOT_API_KEY,
-                'client_secret': config.BOT_API_SECRET
+        data = {"grant_type": "client_credentials",
+                "client_id": config.BOT_API_KEY,
+                "client_secret": config.BOT_API_SECRET
                 }
         # 请求
         r = requests.post(url=config.BOT_OAUTH, headers=header, data=data)
@@ -88,16 +88,16 @@ class BDUnitBot:
         """
         url = config.BOT_URL + '?access_token=' + access_token
         data = {
-            'log_id': str(uuid.uuid4()),
-            'version': '2.0',
-            'service_id': config.BOT_ID,
-            'session_id': session_id,
-            'request': {
-                'query': content,
-                'user_id': uid
+            "log_id": str(uuid.uuid4()),
+            "version": "2.0",
+            "service_id": config.BOT_ID,
+            "session_id": session_id,
+            "request": {
+                "query": content,
+                "user_id": uid
             }
         }
-        r = requests.post(url=url, headers={'Content-Type': 'application/json'}, data=json.dumps(data).encode('utf-8'))
+        r = requests.post(url=url, headers={"Content-Type": "application/json"}, data=json.dumps(data).encode("utf-8"))
         resp = json.loads(r.text)
         if resp:
             if resp['error_code'] == 0:
